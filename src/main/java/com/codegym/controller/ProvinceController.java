@@ -35,7 +35,7 @@ public class ProvinceController {
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("/province/create");
         Iterable<Country> countries = countryService.findAll();
-        modelAndView.addObject("province", countryService.findAll());
+      
         modelAndView.addObject("countries", countries);
         modelAndView.addObject("success", null);
         return modelAndView;
