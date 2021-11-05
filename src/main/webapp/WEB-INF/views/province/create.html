@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create customer</title>
+    <th:block th:replace="/layout/head :: head" />
+</head>
+<body>
+<div class="container">
+    <div class="table-title mb-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Create province</h1>
+            </div>
+            <div class="col-sm-6">
+                <a href="/provinces" class="btn btn-outline-light"><i class="fa fa-list" aria-hidden="true"></i> <span>Province list</span></a>
+            </div>
+        </div>
+    </div>
+    <form th:object="${province}" id="frmCreateProvince" method="post">
+        <fieldset class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Tên</label>
+                <input type="text" class="form-control" th:field="*{provinceName}">
+            </div>
+            <div class="col-md-6">
+                <label for="country" class="col-sm-12 col-form-label">Quốc gia</label>
+                <div class="col-sm-12">
+                    <select id="country" class="form-select" th:field="*{country.name}">
+                        <option th:each="country : ${countries}" th:value="${country.id}" th:text="'(' + ${country.id} + ') ' + ${country.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Diện tích</label>
+                <input type="tel" class="form-control" th:field="*{area}">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Dân số</label>
+                <input type="text" class="form-control" th:field="*{population}">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">GDP</label>
+                <input type="text" class="form-control" th:field="*{GDP}">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Giới thiệu</label>
+                <input type="text" class="form-control" th:field="*{description}">
+            </div>
+            <div class="col-md-12">
+                <button type="submit" id="btnCreateCustom" class="btn btn-outline-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Create province
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="footer">
+    <div id="message-alert">
+        <th:block th:if="${script} == true">
+            <div class="alert-danger">
+                <h5>Please correct errors below:</h5>
+                <ul>
+                    <li th:each="err : ${#fields.errors('customer.*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </th:block>
+        <th:block th:if="${success}">
+            <div class="alert-success">
+                <h5><span th:text="${success}"></span></h5>
+            </div>
+            <span id="close">X</span>
+            <script th:inline="javascript">
+                $("#close").on("click", function () {
+                    $(".footer").css("height", 0);
+                    $("#message-alert").empty();
+                });
+
+                $(".alert-success").fadeTo(5000, 500).fadeOut(1000, function () {
+                    $(".footer").css("height", 0);
+                    $("#message-alert").empty();
+                });
+            </script>
+        </th:block>
+        <div class="alert-danger hide">
+            <h5>Please correct errors below 2:</h5>
+        </div>
+        <th:block th:if="${error}">
+            <div class="alert-danger">
+                <h5>Error message:</h5>
+                <ul>
+                    <li th:text="${error}"></li>
+                </ul>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+<th:block th:replace="/layout/script :: script" />
+
+</body>
+</html>
