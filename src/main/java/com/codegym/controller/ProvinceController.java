@@ -34,6 +34,7 @@ public class ProvinceController {
     @GetMapping("/create")
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("/province/create");
+        modelAndView.addObject("province", new Province());
         Iterable<Country> countries = countryService.findAll();
       
         modelAndView.addObject("countries", countries);
